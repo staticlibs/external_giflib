@@ -1,4 +1,4 @@
-# Copyright 2015, alex at staticlibs.net
+# Copyright 2016, alex at staticlibs.net
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,11 +41,20 @@ set ( ${PROJECT_NAME}_SRC
         ${${PROJECT_NAME}_SOURCE_DIR}/lib/gifalloc.c
         ${${PROJECT_NAME}_SOURCE_DIR}/lib/openbsd-reallocarray.c
         ${${PROJECT_NAME}_SOURCE_DIR}/lib/quantize.c )
-
+if ( ${CMAKE_C_COMPILER_ID}x MATCHES "MSVCx" )
+    set ( ${PROJECT_NAME}_HEADERS ${${PROJECT_NAME}_HEADERS}
+            ${CMAKE_CURRENT_LIST_DIR}/../windows/getopt.h
+            ${CMAKE_CURRENT_LIST_DIR}/../windows/unistd.h )
+    set ( ${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC}
+            ${CMAKE_CURRENT_LIST_DIR}/../windows/getopt.c )
+endif ( )        
+        
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} ${${PROJECT_NAME}_HEADERS} )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
         ${PROJECT_NAME}_SOURCE_DIR/lib )
+        
+if ( ${CMAKE_C_COMPILER_ID}x MATCHES "MSVCx" )
+    target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
+            ${CMAKE_CURRENT_LIST_DIR}/../windows )
+endif ( )        
 
-#if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )
-#    target_compile_definitions ( ${PROJECT_NAME} PRIVATE -D_CRT_SECURE_NO_DEPRECATE )
-#endif ( )
