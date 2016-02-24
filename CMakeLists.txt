@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( external_giflib CXX C )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.6.21.0 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 5.1.2.0 )
 set ( ${PROJECT_NAME}_DESCRIPTION "giflib library build for Staticlibs" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/external_giflib )
 
