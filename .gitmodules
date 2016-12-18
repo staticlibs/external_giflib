@@ -1,3 +1,0 @@
-[submodule "giflib"]
-	path = giflib
-	url = https://github.com/staticlibs/mirror_giflib.git
