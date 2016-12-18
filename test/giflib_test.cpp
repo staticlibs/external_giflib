@@ -24,8 +24,7 @@
 #include "gif_lib.h"
 
 int main() {
-    int err;
-    DGifOpenFileName("foo", &err);
+    DGifOpenFileName("foo");
     return 0;
 }
 

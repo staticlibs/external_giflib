@@ -5,7 +5,8 @@ This project is a part of [Staticlibs](http://staticlibs.net/).
 
 This project contains a CMake build file for building the [giflib](http://giflib.sourceforge.net/) library.
 
-Unofficial GitHub mirror of a giflib repository is used as a git submodule of this project. giflib is pinned to version 5.1.12.
+[giflib sources imported from CentOS lookaside](https://github.com/ojdkbuild/lookaside_giflib.git)
+are used as a submodule of this project.
 
 How to build
 ------------
@@ -34,7 +35,12 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
-**2016-02-4**
+**2016-12-18**
+
+ * version 4.1.6-1
+ * lookaside build
+
+**2016-02-04**
 
  * version 5.1.2.0
  * build for Linux and Windows
