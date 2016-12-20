@@ -16,6 +16,27 @@ cmake_minimum_required ( VERSION 2.8.12 )
 project ( gif C )
 set ( ${PROJECT_NAME}_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../giflib )
 
+# standalone build
+if ( NOT DEFINED STATICLIB_TOOLCHAIN )
+    if ( NOT DEFINED ${PROJECT_NAME}_TOOLCHAIN )
+        if ( WIN32 )
+            if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+                set ( ${PROJECT_NAME}_TOOLCHAIN "windows_amd64_msvc" )
+            else ( )
+                set ( ${PROJECT_NAME}_TOOLCHAIN "windows_i386_msvc" )
+            endif ( )
+        elseif ( APPLE )
+            set ( ${PROJECT_NAME}_TOOLCHAIN "macosx_amd64_clang" )
+        elseif ( UNIX )
+            set ( ${PROJECT_NAME}_TOOLCHAIN "linux_amd64_gcc" )
+        else ( )
+            message ( FATAL_ERROR "Cannot determine toolchain to use, please specify [${PROJECT_NAME}_TOOLCHAIN]" )
+        endif ( )
+    endif ( )
+else ( )
+    set ( ${PROJECT_NAME}_TOOLCHAIN ${STATICLIB_TOOLCHAIN} )
+endif ( )
+
 # library
 set ( ${PROJECT_NAME}_HEADERS
         ${${PROJECT_NAME}_SOURCE_DIR}/lib/gif_lib.h
@@ -45,6 +66,12 @@ target_compile_definitions ( ${PROJECT_NAME} PRIVATE
             -DHAVE_UNISTD_H
             -DHAVE_FCNTL_H
             -DUINT32=uint32_t )
+
+if ( ${PROJECT_NAME}_TOOLCHAIN MATCHES "android_[^_]+_gcc" )
+    target_compile_definitions ( ${PROJECT_NAME} PRIVATE
+            -DS_IREAD=S_IRUSR
+            -DS_IWRITE=S_IWUSR )
+endif ( )
         
 if ( ${CMAKE_C_COMPILER_ID}x MATCHES "MSVCx" )
     target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
