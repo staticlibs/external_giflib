@@ -14,7 +14,10 @@
 
 cmake_minimum_required ( VERSION 2.8.12 )
 project ( gif C )
-set ( ${PROJECT_NAME}_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../giflib )
+
+if ( NOT DEFINED ${PROJECT_NAME}_LOOKASIDE_DIR )
+    set ( ${PROJECT_NAME}_LOOKASIDE_DIR ${CMAKE_CURRENT_LIST_DIR}/../../../lookaside_giflib CACHE INTERNAL "" )
+endif ( )
 
 # standalone build
 if ( NOT DEFINED STATICLIB_TOOLCHAIN )
@@ -39,17 +42,17 @@ endif ( )
 
 # library
 set ( ${PROJECT_NAME}_HEADERS
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/gif_lib.h
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/gif_hash.h
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/gif_lib_private.h )
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/gif_lib.h
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/gif_hash.h
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/gif_lib_private.h )
 set ( ${PROJECT_NAME}_SRC
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/dgif_lib.c
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/egif_lib.c
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/gif_err.c
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/gif_font.c
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/gifalloc.c
-        #${${PROJECT_NAME}_SOURCE_DIR}/lib/openbsd-reallocarray.c
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib/quantize.c )
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/dgif_lib.c
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/egif_lib.c
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/gif_err.c
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/gif_font.c
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/gifalloc.c
+        #${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/openbsd-reallocarray.c
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib/quantize.c )
 if ( ${CMAKE_C_COMPILER_ID}x MATCHES "MSVCx" )
     set ( ${PROJECT_NAME}_HEADERS ${${PROJECT_NAME}_HEADERS}
             ${CMAKE_CURRENT_LIST_DIR}/../windows/getopt.h
@@ -60,7 +63,7 @@ endif ( )
         
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} ${${PROJECT_NAME}_HEADERS} )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
-        ${${PROJECT_NAME}_SOURCE_DIR}/lib )
+        ${${PROJECT_NAME}_LOOKASIDE_DIR}/lib )
 target_compile_definitions ( ${PROJECT_NAME} PRIVATE
             -DHAVE_STDINT_H 
             -DHAVE_UNISTD_H

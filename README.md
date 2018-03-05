@@ -1,12 +1,13 @@
 giflib library build for Staticlibs
 ===================================
 
+[![travis](https://travis-ci.org/staticlibs/external_giflib.svg?branch=master)](https://travis-ci.org/staticlibs/external_giflib)
+[![appveyor](https://ci.appveyor.com/api/projects/status/github/staticlibs/external_giflib?svg=true)](https://ci.appveyor.com/project/staticlibs/external-giflib)
+
 This project is a part of [Staticlibs](http://staticlibs.net/).
 
-This project contains a CMake build file for building the [giflib](http://giflib.sourceforge.net/) library.
-
-[giflib sources imported from CentOS lookaside](https://github.com/ojdkbuild/lookaside_giflib.git)
-are used as a submodule of this project.
+This project contains a CMake build file for building the [giflib](http://giflib.sourceforge.net/) library that
+can be used to build sources imported from [CentOS lookaside](https://github.com/staticlibs/lookaside_giflib.git).
 
 How to build
 ------------
@@ -17,7 +18,8 @@ To build the library on Windows using Visual Studio 2013 Express run the followi
 Visual Studio development command prompt 
 (`C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\Shortcuts\VS2013 x86 Native Tools Command Prompt`):
 
-    git clone --recursive https://github.com/staticlibs/external_giflib.git
+    git clone https://github.com/staticlibs/external_giflib.git
+    git clone https://github.com/staticlibs/lookaside_giflib.git
     cd external_giflib
     mkdir build
     cd build
@@ -34,6 +36,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2018-03-05**
+
+ * version 4.1.6-2
+ * drop submodule
 
 **2016-12-18**
 

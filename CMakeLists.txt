@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( external_giflib CXX C )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 4.1.6-1 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 4.1.6-2 )
 set ( ${PROJECT_NAME}_DESCRIPTION "giflib library build for Staticlibs" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/external_giflib )
 
@@ -26,12 +26,12 @@ if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
 endif ( )
 
 # library
-add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/resources/giflib_416_cmake ${CMAKE_CURRENT_BINARY_DIR}/giflib )
+add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/resources/giflib_cmake ${CMAKE_CURRENT_BINARY_DIR}/giflib )
 add_custom_target ( ${PROJECT_NAME} DEPENDS gif )
 
 # pkg-config
 set ( ${PROJECT_NAME}_MODULE gif )
-set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/giflib/lib" )
+set ( ${PROJECT_NAME}_PC_CFLAGS "-I${gif_LOOKASIDE_DIR}/lib" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -lgif" )
 
 configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/pkg-config.in 
