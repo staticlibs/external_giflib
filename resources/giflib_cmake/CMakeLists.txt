@@ -79,5 +79,8 @@ endif ( )
 if ( ${CMAKE_C_COMPILER_ID}x MATCHES "MSVCx" )
     target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
             ${CMAKE_CURRENT_LIST_DIR}/../windows )
-endif ( )        
-
+    if ( DEFINED ${PROJECT_NAME}_MSVC_ALT_CRUNTIME )
+        target_compile_options ( ${PROJECT_NAME} PRIVATE
+                ${${PROJECT_NAME}_MSVC_ALT_CRUNTIME} )
+    endif ( )
+endif ( )
